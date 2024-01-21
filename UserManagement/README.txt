@@ -1,0 +1,1 @@
+﻿Replace appsettings.json password to database if using the connection string from this project
