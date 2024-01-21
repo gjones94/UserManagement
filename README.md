@@ -9,6 +9,23 @@ This is a common re-usable project for managing users in your .net application
 
 **To add access to the Identity Apis in your own project, you will want to add the following lines of code to your program.cs in your project**<br>
 ```
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Add Database that inherits from UserDbContext in UserManagement Project
+string? connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
+if(string.IsNullOrEmpty(connectionString) == false)
+{
+    builder.Services.AddDbContext<ApplicationDb>(o => o.UseMySQL(connectionString));
+}
+else
+{
+    throw new Exception($"Unable to find connection string");
+}
+
 // Specific to user of Identity API connection
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStores<YourDbName>();
@@ -22,7 +39,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-**app.MapIdentityApi<IdentityUser>();**
+//Add this line here to allow app to hit api endpoints of Identity
+app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 
