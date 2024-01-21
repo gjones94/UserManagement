@@ -7,7 +7,7 @@ This is a common re-usable project for managing users in your .net application
 ![image](https://github.com/gjones94/UserManagement/assets/141204905/cdc23a13-7937-4eec-a411-fd9052e6e965)
 
 
-**To add access to the Identity Apis in your own project, you will want to add the following lines of code to your program.cs in your project**<br>
+**To add access to the Identity Apis in your own project, you will want to adjust the following lines of code to your program.cs in your project**<br>
 ```
 
 builder.Services.AddControllers();
@@ -26,7 +26,7 @@ else
     throw new Exception($"Unable to find connection string");
 }
 
-// Specific to user of Identity API connection
+// ADD
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStores<YourDbName>();
 ```
@@ -39,7 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//Add this line here to allow app to hit api endpoints of Identity
+//ADD
 app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
