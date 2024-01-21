@@ -11,6 +11,25 @@ This is a common re-usable project for managing users in your .net application
 ```
 // Specific to user of Identity API connection
 builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStores<ApplicationDb>();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStores<YourDbName>();
+```
+
+```
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+**app.MapIdentityApi<IdentityUser>();
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
 ```
 
