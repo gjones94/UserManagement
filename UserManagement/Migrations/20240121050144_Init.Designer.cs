@@ -10,7 +10,7 @@ using UserManagement.Data;
 
 namespace UserManagement.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(UserDbContext))]
     [Migration("20240121050144_Init")]
     partial class Init
     {
