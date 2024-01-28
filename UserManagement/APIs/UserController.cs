@@ -61,6 +61,21 @@ namespace UserManagement.APIs
             return TypedResults.Ok();
         }
 
+
+        [AllowAnonymous]
+        [HttpGet]
+        public Results<Ok, UnauthorizedHttpResult> IsAuthenticated()
+        {
+            if (HttpContext.User?.Identity?.IsAuthenticated ?? false)
+            {
+                return TypedResults.Ok();
+            }
+            else
+            {
+                return TypedResults.Unauthorized();
+            }
+        }
+
         [HttpPost]
         public async Task<Results<Ok, ProblemHttpResult>> Login([FromBody] LoginRequest login, [FromQuery] bool? useCookies, [FromQuery] bool? useSessionCookies, [FromServices] IServiceProvider serviceProvider)
         {
@@ -99,6 +114,7 @@ namespace UserManagement.APIs
 
             return TypedResults.Unauthorized();
         }
+
 
         [HttpGet]
         public async Task<Results<Ok, ProblemHttpResult>> Logout()
